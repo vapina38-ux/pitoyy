@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pitoyy`Onlyy Store</title>
+
+<link rel="icon" type="image/png" href="Pitoyy_Onlyy_Logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#070707;
+color:white;
+overflow-x:hidden;
+}
+
+/* LOADING */
+
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:#050505;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+#loader img{
+width:130px;
+height:130px;
+border-radius:50%;
+border:3px solid red;
+box-shadow:0 0 35px red;
+animation:pulse 1.5s infinite;
+object-fit:cover;
+background:#000;
+}
+
+#loader h1{
+margin-top:20px;
+font-size:34px;
+text-shadow:0 0 20px red;
+}
+
+.loading-bar{
+width:230px;
+height:10px;
+background:#111;
+border-radius:20px;
+overflow:hidden;
+margin-top:20px;
+border:1px solid red;
+}
+
+.loading-fill{
+height:100%;
+width:0%;
+background:red;
+animation:loading 3s linear forwards;
+}
+
+@keyframes loading{
+100%{width:100%;}
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.08);}
+100%{transform:scale(1);}
+}
+
+/* HEADER */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:#0f0f0f;
+border-bottom:2px solid red;
+box-shadow:0 0 20px red;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img{
+width:60px;
+height:60px;
+border-radius:50%;
+border:2px solid red;
+object-fit:cover;
+box-shadow:0 0 20px red;
+background:#000;
+}
+
+.logo h1{
+font-size:24px;
+text-shadow:0 0 15px red;
+}
+
+/* BANNER */
+
+.banner{
+height:340px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.8)),
+url('https://wallpapercave.com/wp/wp5128415.jpg');
+background-size:cover;
+background-position:center;
+}
+
+.banner img{
+width:110px;
+height:110px;
+border-radius:50%;
+border:3px solid red;
+box-shadow:0 0 30px red;
+margin-bottom:20px;
+object-fit:cover;
+background:#000;
+}
+
+.banner h2{
+font-size:42px;
+text-shadow:0 0 25px red;
+}
+
+.banner p{
+margin-top:10px;
+color:#ccc;
+font-size:15px;
+}
+
+/* SEARCH */
+
+.search-box{
+padding:20px;
+display:flex;
+justify-content:center;
+}
+
+.search-box input{
+width:90%;
+max-width:500px;
+padding:14px;
+border:none;
+outline:none;
+border-radius:12px;
+background:#111;
+color:white;
+border:1px solid red;
+box-shadow:0 0 15px rgba(255,0,0,0.4);
+}
+
+/* PRODUCTS */
+
+.products{
+padding:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+}
+
+.card{
+background:#111;
+border:1px solid red;
+border-radius:18px;
+padding:22px;
+position:relative;
+transition:0.3s;
+box-shadow:0 0 20px rgba(255,0,0,0.2);
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 30px red;
+}
+
+.badge{
+position:absolute;
+top:15px;
+right:-35px;
+background:red;
+padding:8px 40px;
+transform:rotate(45deg);
+font-size:12px;
+font-weight:bold;
+}
+
+.card h3{
+font-size:24px;
+margin-bottom:10px;
+color:#ff2b2b;
+}
+
+.desc{
+font-size:14px;
+color:#ccc;
+line-height:1.6;
+margin-bottom:15px;
+}
+
+.features{
+margin-top:10px;
+}
+
+.features li{
+list-style:none;
+padding:6px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
+font-size:14px;
+}
+
+.price{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
+gap:10px;
+margin-top:15px;
+}
+
+.price-box{
+background:#1a0000;
+border:1px solid red;
+padding:12px;
+border-radius:12px;
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.price-box:hover,
+.price-box.selected{
+background:red;
+transform:scale(1.05);
+box-shadow:0 0 20px red;
+}
+
+.price-box h4{
+font-size:12px;
+}
+
+.price-box span{
+font-size:18px;
+font-weight:bold;
+}
+
+.buy-btn{
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:12px;
+background:red;
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.buy-btn:hover{
+background:#ff2b2b;
+box-shadow:0 0 20px red;
+}
+
+/* FLOAT WA */
+
+.float-wa{
+position:fixed;
+bottom:20px;
+right:20px;
+width:65px;
+height:65px;
+background:#25D366;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:32px;
+text-decoration:none;
+box-shadow:0 0 20px #25D366;
+z-index:999;
+}
+
+/* FOOTER */
+
+footer{
+margin-top:30px;
+padding:25px;
+text-align:center;
+background:#0f0f0f;
+border-top:1px solid red;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<img src="Pitoyy_Onlyy_Logo.png">
+
+<h1>Pitoyy`Onlyy</h1>
+
+<div class="loading-bar">
+<div class="loading-fill"></div>
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+
+<img src="Pitoyy_Onlyy_Logo.png">
+
+<h1>Pitoyy`Onlyy</h1>
+
+</div>
+
+</header>
+
+<!-- BANNER -->
+
+<section class="banner">
+
+<img src="Pitoyy_Onlyy_Logo.png">
+
+<h2>TOP 1 VIP MODS INDONESIA 🔥</h2>
+
+<p>PREMIUM CHEAT • FAST RESPON • TRUSTED STORE</p>
+
+</section>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Cari Cheat Premium...">
+</div>
+
+<!-- PRODUCTS -->
+
+<section class="products">
+
+<!-- DRIP CLIENT FF NO ROOT -->
+
+<div class="card">
+
+<div class="badge">BEST</div>
+
+<h3>DRIP CLIENT FF NO ROOT</h3>
+
+<p class="desc">
+Cheat Free Fire NO ROOT dengan gameplay smooth dan fitur premium.
+</p>
+
+<ul class="features">
+<li>✔ Enable Functions</li>
+<li>✔ Aimbot Legit</li>
+<li>✔ Aimbot Rage</li>
+<li>✔ Silent Aim</li>
+<li>✔ Silent Kill</li>
+<li>✔ Aim Magnet</li>
+<li>✔ ALL ESP</li>
+<li>✔ ALL PLAYER</li>
+</ul>
+
+<div class="price">
+
+<div class="price-box selected" onclick="selectPackage(this,'DRIP CLIENT FF NO ROOT','1 HARI','20K')">
+<h4>1H</h4>
+<span>20K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'DRIP CLIENT FF NO ROOT','3 HARI','30K')">
+<h4>3H</h4>
+<span>30K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'DRIP CLIENT FF NO ROOT','7 HARI','70K')">
+<h4>7H</h4>
+<span>70K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'DRIP CLIENT FF NO ROOT','15 HARI','100K')">
+<h4>15H</h4>
+<span>100K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'DRIP CLIENT FF NO ROOT','30 HARI','130K')">
+<h4>30H</h4>
+<span>130K</span>
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="buyNow(this)"
+data-product="DRIP CLIENT FF NO ROOT"
+data-duration="1 HARI"
+data-price="20K">
+BUY NOW
+</button>
+
+</div>
+
+<!-- DRIP ROOT -->
+
+<div class="card">
+
+<div class="badge">HOT</div>
+
+<h3>DRIP CLIENT FF ROOT</h3>
+
+<p class="desc">
+Versi ROOT lebih brutal dan bypass maksimal.
+</p>
+
+<ul class="features">
+<li>✔ Aimbot Rage</li>
+<li>✔ Silent Kill</li>
+<li>✔ Aim Magnet</li>
+<li>✔ ALL ESP</li>
+<li>✔ ALL PLAYER</li>
+</ul>
+
+<div class="price">
+
+<div class="price-box selected" onclick="selectPackage(this,'DRIP CLIENT FF ROOT','1 HARI','30K')">
+<h4>1H</h4>
+<span>30K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'DRIP CLIENT FF ROOT','7 HARI','70K')">
+<h4>7H</h4>
+<span>70K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'DRIP CLIENT FF ROOT','30 HARI','160K')">
+<h4>30H</h4>
+<span>160K</span>
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="buyNow(this)"
+data-product="DRIP CLIENT FF ROOT"
+data-duration="1 HARI"
+data-price="30K">
+BUY NOW
+</button>
+
+</div>
+
+<!-- HG CHEAT -->
+
+<div class="card">
+
+<div class="badge">VIP</div>
+
+<h3>HG CHEAT</h3>
+
+<p class="desc">
+ESP lengkap dan aiming smooth premium.
+</p>
+
+<ul class="features">
+<li>✔ Show Health</li>
+<li>✔ Show Name</li>
+<li>✔ Show Box</li>
+<li>✔ ESP Player</li>
+<li>✔ Aim Silent</li>
+<li>✔ Aim Magnet</li>
+</ul>
+
+<div class="price">
+
+<div class="price-box selected" onclick="selectPackage(this,'HG CHEAT','1 HARI','20K')">
+<h4>1H</h4>
+<span>20K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'HG CHEAT','7 HARI','40K')">
+<h4>7H</h4>
+<span>40K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'HG CHEAT','10 HARI','60K')">
+<h4>10H</h4>
+<span>60K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'HG CHEAT','30 HARI','150K')">
+<h4>30H</h4>
+<span>150K</span>
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="buyNow(this)"
+data-product="HG CHEAT"
+data-duration="1 HARI"
+data-price="20K">
+BUY NOW
+</button>
+
+</div>
+
+<!-- PATO TEAM -->
+
+<div class="card">
+
+<div class="badge">PREMIUM</div>
+
+<h3>PATO TEAM APK MOD</h3>
+
+<p class="desc">
+APK MOD premium dengan fitur lengkap dan optimize low device.
+</p>
+
+<ul class="features">
+<li>✔ Aimbot Legit</li>
+<li>✔ Aimbot Silent</li>
+<li>✔ Aimbot Magnet</li>
+<li>✔ ESP Line</li>
+<li>✔ ESP Skeleton</li>
+<li>✔ Speed Hack</li>
+<li>✔ Ghost Hack</li>
+<li>✔ Spin Bot</li>
+</ul>
+
+<div class="price">
+
+<div class="price-box selected" onclick="selectPackage(this,'PATO TEAM APK MOD','3 HARI','35K')">
+<h4>3H</h4>
+<span>35K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'PATO TEAM APK MOD','7 HARI','75K')">
+<h4>7H</h4>
+<span>75K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'PATO TEAM APK MOD','15 HARI','130K')">
+<h4>15H</h4>
+<span>130K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'PATO TEAM APK MOD','30 HARI','190K')">
+<h4>30H</h4>
+<span>190K</span>
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="buyNow(this)"
+data-product="PATO TEAM APK MOD"
+data-duration="3 HARI"
+data-price="35K">
+BUY NOW
+</button>
+
+</div>
+
+<!-- PRIME HOOK -->
+
+<div class="card">
+
+<div class="badge">NEW</div>
+
+<h3>PRIME HOOK APKMOD</h3>
+
+<p class="desc">
+APK MOD agresif dengan fitur rage dan gameplay cepat.
+</p>
+
+<ul class="features">
+<li>✔ Aimbot Rage</li>
+<li>✔ ESP Box</li>
+<li>✔ ESP Line</li>
+<li>✔ ESP Distance</li>
+<li>✔ ESP Health</li>
+<li>✔ Speed Hack</li>
+<li>✔ Ghost Hack</li>
+</ul>
+
+<div class="price">
+
+<div class="price-box selected" onclick="selectPackage(this,'PRIME HOOK APKMOD','1 HARI','15K')">
+<h4>1H</h4>
+<span>15K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'PRIME HOOK APKMOD','3 HARI','25K')">
+<h4>3H</h4>
+<span>25K</span>
+</div>
+
+<div class="price-box" onclick="selectPackage(this,'PRIME HOOK APKMOD','7 HARI','50K')">
+<h4>7H</h4>
+<span>50K</span>
+</div>
+
+</div>
+
+<button class="buy-btn"
+onclick="buyNow(this)"
+data-product="PRIME HOOK APKMOD"
+data-duration="1 HARI"
+data-price="15K">
+BUY NOW
+</button>
+
+</div>
+
+</section>
+
+<!-- FLOAT WA -->
+
+<a href="https://wa.me/6283172074072" class="float-wa">
+💬
+</a>
+
+<footer>
+© 2026 Pitoyy`Onlyy Store
+</footer>
+
+<script>
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},3000);
+
+});
+
+const searchInput = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("keyup", function(){
+
+let filter = searchInput.value.toLowerCase();
+
+cards.forEach(card => {
+
+let text = card.innerText.toLowerCase();
+
+if(text.includes(filter)){
+card.style.display = "block";
+}else{
+card.style.display = "none";
+}
+
+});
+
+});
+
+function selectPackage(element, product, duration, price){
+
+let parent = element.parentElement;
+let boxes = parent.querySelectorAll('.price-box');
+
+boxes.forEach(box=>{
+box.classList.remove('selected');
+});
+
+element.classList.add('selected');
+
+let card = element.closest('.card');
+let buyBtn = card.querySelector('.buy-btn');
+
+buyBtn.setAttribute('data-product', product);
+buyBtn.setAttribute('data-duration', duration);
+buyBtn.setAttribute('data-price', price);
+
+}
+
+function buyNow(button){
+
+let product = button.getAttribute('data-product');
+let duration = button.getAttribute('data-duration');
+let price = button.getAttribute('data-price');
+
+let message =
+`Halo bang saya mau order :
+
+🛒 Produk : ${product}
+⏰ Paket : ${duration}
+💰 Harga : ${price}
+
+Mohon kirim QRIS pembayaran 🙏`;
+
+let whatsapp =
+`https://wa.me/6283172074072?text=${encodeURIComponent(message)}`;
+
+window.open(whatsapp,'_blank');
+
+}
+
+</script>
+
+</body>
+</html>
