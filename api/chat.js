@@ -7,14 +7,20 @@ export default async function handler(req, res) {
     const { pesan } = req.body;
 
     const response = await fetch(
-      }`,`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           contents: [
             {
-              parts: [{ text: pesan }]
+              parts: [
+                {
+                  text: pesan
+                }
+              ]
             }
           ]
         })
@@ -29,10 +35,11 @@ export default async function handler(req, res) {
       });
     }
 
-    const jawaban = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const jawaban =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     return res.status(200).json({
-      jawaban: jawaban || "AI tidak menjawab. Cek API key Gemini atau model."
+      jawaban: jawaban || "AI tidak menjawab."
     });
 
   } catch (err) {
