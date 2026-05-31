@@ -1,32 +1,43 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Gunakan POST" });
+    return res.status(405).json({ jawaban: "Method tidak diizinkan" });
   }
 
-  const { pesan } = req.body;
-
   try {
-    const r = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        input: pesan
-      })
-    });
+    const { pesan } = req.body;
 
-    const data = await r.json();
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: pesan
+                }
+              ]
+            }
+          ]
+        })
+      }
+    );
 
-    res.status(200).json({
-      jawaban: data.output_text || data.error?.message || "AI tidak menjawab."
-    });
+    const data = await response.json();
+
+    const jawaban =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "AI tidak menjawab.";
+
+    return res.status(200).json({ jawaban });
 
   } catch (err) {
-    res.status(500).json({
-      jawaban: "Error server: " + err.message
+    return res.status(500).json({
+      jawaban: "Error: " + err.message
     });
   }
 }
